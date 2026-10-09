@@ -1,1 +1,96 @@
+/* ===== TABLET ===== */
+@media (max-width: 900px) {
+  .container { padding: 0 10px; }
+  .panel { padding: 18px; }
+  .balance-bar { grid-template-columns: repeat(2, 1fr); }
+  .race-track { min-height: 220px; }
+}
 
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+  body { padding: 10px; }
+  
+  header { padding: 15px; }
+  header h1 { font-size: 22px; }
+  header .sub { font-size: 11px; }
+  
+  .user-info {
+    position: static;
+    display: inline-flex;
+    margin-top: 10px;
+    font-size: 11px;
+  }
+  
+  .balance-bar { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .balance-card { padding: 10px; }
+  .balance-card .icon { font-size: 22px; }
+  .balance-card .label { font-size: 9px; }
+  .balance-card .value { font-size: 16px; }
+  
+  .tab-btn { padding: 10px 14px; font-size: 12px; }
+  
+  .panel { padding: 15px; border-radius: 20px; }
+  .panel h2 { font-size: 18px; }
+  .panel .desc { font-size: 11px; }
+  
+  .btn { padding: 10px 16px; font-size: 13px; }
+  .bet-input { width: 100px; font-size: 14px; }
+  
+  .teams { font-size: 14px; }
+  .vs { font-size: 16px; }
+  .odd-btn { padding: 8px 4px; }
+  .odd-value { font-size: 13px; }
+  .odd-label { font-size: 9px; }
+  
+  .horse-picker { grid-template-columns: repeat(2, 1fr); }
+  .horse { font-size: 26px; }
+  .lane { height: 40px; }
+  .lane-num { width: 24px; height: 24px; font-size: 12px; }
+  
+  .duck-area { height: 300px; }
+  .duck { font-size: 38px; }
+  .cloud { font-size: 28px; }
+  .duck-stats { padding: 8px; gap: 6px; }
+  .duck-stat .s-label { font-size: 9px; }
+  .duck-stat .s-value { font-size: 15px; }
+  
+  .hw-title { font-size: 38px; letter-spacing: 3px; }
+  .hw-sub { font-size: 18px; }
+  .creator-name { font-size: 28px; letter-spacing: 2px; }
+  .creator-role { font-size: 13px; }
+  .pfp-container, .pfp-image, .pfp-fallback {
+    width: 140px; height: 140px;
+  }
+  .pfp-fallback { font-size: 60px; }
+  .hw-card { padding: 18px; }
+  .hw-card h3 { font-size: 22px; }
+  .hw-card p { font-size: 13px; }
+  .pumpkin { font-size: 35px; }
+  .hw-close { width: 40px; height: 40px; font-size: 20px; top: 10px; right: 10px; }
+  
+  .login-box { padding: 30px 20px; }
+  .login-duck { font-size: 70px; }
+  .login-box h1 { font-size: 26px; }
+  .login-box p { font-size: 12px; }
+  .google-btn { font-size: 14px; padding: 12px 18px; }
+  
+  .gmodal { padding: 25px 20px; }
+  .gmodal-head h2 { font-size: 18px; }
+  .gmodal-head p { font-size: 12px; }
+}
+
+/* ===== MOBILE PICCOLO ===== */
+@media (max-width: 400px) {
+  header h1 { font-size: 18px; }
+  .balance-bar { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .balance-card .value { font-size: 14px; }
+  .tab-btn { padding: 8px 10px; font-size: 11px; }
+  .btn { font-size: 12px; padding: 9px 12px; }
+  .duck-area { height: 250px; }
+  .duck { font-size: 32px; }
+  .hw-title { font-size: 30px; }
+  .creator-name { font-size: 22px; }
+  .pfp-container, .pfp-image, .pfp-fallback {
+    width: 120px; height: 120px;
+  }
+}
