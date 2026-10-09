@@ -1,9 +1,9 @@
 // ===== UTILS =====
-// Funzioni helper riutilizzabili in tutto il sito
+// Funzioni helper riutilizzabili
 
 window.Utils = {
 
-  // Formatta un numero come prezzo: 100 -> "100", 1234 -> "1.234"
+  // Formatta numero come prezzo: 1234 -> "1.234"
   formatMoney(n) {
     return Math.floor(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   },
@@ -13,17 +13,17 @@ window.Utils = {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   },
 
-  // Numero decimale casuale tra min e max
+  // Numero decimale casuale
   randomFloat(min, max) {
     return Math.random() * (max - min) + min;
   },
 
-  // Elemento casuale da un array
+  // Elemento casuale da array
   randomFrom(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
   },
 
-  // Mostra un messaggio in un elemento con classe win/lose
+  // Mostra messaggio con classe win/lose/info
   showMessage(elementId, text, type) {
     const el = document.getElementById(elementId);
     if (!el) return;
@@ -31,26 +31,28 @@ window.Utils = {
     el.className = 'message' + (type ? ' ' + type : '');
   },
 
-  // Effetto pop quando si vince (aggiunge classe temporanea)
+  // Effetto pop
   celebrate(elementId) {
     const el = document.getElementById(elementId);
     if (!el) return;
     el.style.transition = 'transform 0.2s';
     el.style.transform = 'scale(1.15)';
-    setTimeout(() => {
-      el.style.transform = 'scale(1)';
-    }, 200);
+    setTimeout(() => { el.style.transform = 'scale(1)'; }, 200);
   },
 
-  // Delay con Promise (per animazioni sequenziali)
+  // Delay con Promise
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   },
 
-  // Emoji casuale per papere
-  randomDuckEmoji() {
-    const ducks = ['🦆', '🦆', '🦆', '🦆', '🦆', '🦢'];
-    return this.randomFrom(ducks);
+  // Data formattata italiana
+  formatDate(iso) {
+    try {
+      const d = new Date(iso);
+      return d.toLocaleDateString('it-IT');
+    } catch (e) {
+      return '';
+    }
   }
 
 };
