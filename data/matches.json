@@ -1,1 +1,52 @@
-
+{
+  "matches": [
+    {
+      "id": 1,
+      "league": "Serie A",
+      "time": "20:45",
+      "home": "Inter",
+      "away": "Milan",
+      "odds": { "1": 2.10, "X": 3.20, "2": 3.50 }
+    },
+    {
+      "id": 2,
+      "league": "Premier League",
+      "time": "18:30",
+      "home": "Liverpool",
+      "away": "Arsenal",
+      "odds": { "1": 2.30, "X": 3.40, "2": 2.90 }
+    },
+    {
+      "id": 3,
+      "league": "Champions League",
+      "time": "21:00",
+      "home": "Real Madrid",
+      "away": "Bayern",
+      "odds": { "1": 2.50, "X": 3.30, "2": 2.70 }
+    },
+    {
+      "id": 4,
+      "league": "La Liga",
+      "time": "19:00",
+      "home": "Barcelona",
+      "away": "Atletico",
+      "odds": { "1": 1.90, "X": 3.50, "2": 3.80 }
+    },
+    {
+      "id": 5,
+      "league": "Serie A",
+      "time": "18:00",
+      "home": "Juventus",
+      "away": "Napoli",
+      "odds": { "1": 2.40, "X": 3.10, "2": 3.00 }
+    },
+    {
+      "id": 6,
+      "league": "Bundesliga",
+      "time": "15:30",
+      "home": "Dortmund",
+      "away": "Leverkusen",
+      "odds": { "1": 2.80, "X": 3.40, "2": 2.40 }
+    }
+  ]
+}
