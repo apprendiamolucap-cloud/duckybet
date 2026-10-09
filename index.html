@@ -1,14 +1,139 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <title>DuckyBet</title>
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦆 DuckyBet</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="css/game.css">
 </head>
 <body>
-    <h1>🦆 DuckyBet</h1>
-    <p>Benvenuto nel mio sito!</p>
-    <button>Cliccami</button>
-    <script src="js/main.js"></script>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <span class="login-duck">🦆</span>
+    <h1>DuckyBet</h1>
+    <p>Accedi per iniziare a giocare!</p>
+    <button class="google-btn" onclick="Auth.showModal()">
+      <svg class="gicon" viewBox="0 0 48 48">
+        <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+        <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+        <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+        <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+      </svg>
+      Accedi con Google
+    </button>
+  </div>
+</div>
+
+<!-- MODALE GOOGLE -->
+<div id="googleModal">
+  <div class="gmodal">
+    <div class="gmodal-head">
+      <svg style="width:40px;height:40px;" viewBox="0 0 48 48">
+        <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+        <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+        <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+        <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+      </svg>
+      <h2>Accedi</h2>
+      <p>per continuare su DuckyBet</p>
+    </div>
+    <input type="email" class="ginput" id="gEmail" placeholder="Email">
+    <input type="text" class="ginput" id="gName" placeholder="Nome (opzionale)">
+    <div class="gfoot">
+      <button class="gcancel" onclick="Auth.closeModal()">Annulla</button>
+      <button class="gnext" onclick="Auth.confirm()">Avanti</button>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="container" id="appContainer" style="display:none;">
+  <header>
+    <div class="user-info" onclick="Auth.logout()">
+      <span id="userAvatar">🦆</span>
+      <span id="userName">Ospite</span>
+      <span style="opacity:0.6;font-size:10px;">(esci)</span>
+    </div>
+    <h1>🦆 DuckyBet 🦆</h1>
+    <p class="sub">Scommesse • Cavalli • Papere</p>
+  </header>
+
+  <div class="balance-bar">
+    <div class="balance-card"><span class="icon">💰</span><div class="label">Saldo</div><div class="value">€<span id="balance">100</span></div></div>
+    <div class="balance-card"><span class="icon">🏆</span><div class="label">Vincite</div><div class="value">€<span id="totalWon">0</span></div></div>
+    <div class="balance-card"><span class="icon">🎯</span><div class="label">Vinte</div><div class="value"><span id="betsWon">0</span>/<span id="betsTotal">0</span></div></div>
+    <div class="balance-card"><span class="icon">🦆</span><div class="label">Papere</div><div class="value"><span id="ducksCaught">0</span></div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('calcio',this)">⚽ Calcio</button>
+    <button class="tab-btn" onclick="switchTab('cavalli',this)">🐎 Cavalli</button>
+    <button class="tab-btn" onclick="switchTab('papere',this)">🦆 Papere</button>
+    <a href="halloween.html" class="tab-btn hw">🎃 Halloween</a>
+  </div>
+
+  <div class="section active" id="calcio-section">
+    <div class="panel">
+      <h2>⚽ Schedine Calcio</h2>
+      <p class="desc">Seleziona le giocate e crea la schedina!</p>
+      <div id="matchList"></div>
+      <div style="text-align:center;margin-top:15px;">
+        <button class="btn green" onclick="Calcio.play()">💰 GIOCA SCHEDINA</button>
+      </div>
+      <div class="message" id="calcioMessage">Seleziona una o più giocate.</div>
+    </div>
+  </div>
+
+  <div class="section" id="cavalli-section">
+    <div class="panel">
+      <h2>🐎 Corse dei Cavalli</h2>
+      <p class="desc">Scegli il cavallo, punta e guarda la corsa!</p>
+      <div class="race-track" id="raceTrack"><div class="finish-line"></div></div>
+      <div class="horse-picker" id="horsePicker"></div>
+      <div style="text-align:center;">
+        <span style="font-weight:700;color:#888;">Puntata: €</span>
+        <input type="number" class="bet-input" id="horseBet" value="20" min="1">
+      </div>
+      <div style="text-align:center;margin-top:10px;">
+        <button class="btn green" id="raceBtn" onclick="Cavalli.start()">🏁 VIA!</button>
+      </div>
+      <div class="message" id="raceMessage">Scegli un cavallo!</div>
+    </div>
+  </div>
+
+  <div class="section" id="papere-section">
+    <div class="panel">
+      <h2>🦆 Caccia alle Papere</h2>
+      <p class="desc">Clicca le papere! Costo: €10 a partita.</p>
+      <div class="duck-stats">
+        <div class="duck-stat"><div class="s-label">Tempo</div><div class="s-value" id="duckTime">30s</div></div>
+        <div class="duck-stat"><div class="s-label">Punteggio</div><div class="s-value" id="duckScore">0</div></div>
+        <div class="duck-stat"><div class="s-label">Costo</div><div class="s-value">€10</div></div>
+      </div>
+      <div class="duck-area" id="duckArea">
+        <div class="cloud" style="top:15%;">☁️</div>
+        <div class="cloud" style="top:45%;animation-delay:-8s;">☁️</div>
+      </div>
+      <div style="text-align:center;margin-top:10px;">
+        <button class="btn green" id="duckStartBtn" onclick="Papere.start()">▶ INIZIA (€10)</button>
+      </div>
+      <div class="message" id="duckMessage">Premi INIZIA per giocare!</div>
+    </div>
+  </div>
+</div>
+
+<script src="js/utils.js" defer></script>
+<script src="js/storage.js" defer></script>
+<script src="js/auth.js" defer></script>
+<script src="js/balance.js" defer></script>
+<script src="js/calcio.js" defer></script>
+<script src="js/cavalli.js" defer></script>
+<script src="js/papere.js" defer></script>
+<script src="js/main.js" defer></script>
+
 </body>
 </html>
