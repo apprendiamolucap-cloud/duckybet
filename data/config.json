@@ -1,1 +1,11 @@
-
+{
+  "startingBalance": 100,
+  "duckGameCost": 10,
+  "duckGameDuration": 30,
+  "betCostCalcio": 5,
+  "minBet": 1,
+  "maxBet": 1000,
+  "version": "1.0.0",
+  "creator": "Santos_Lukas",
+  "siteName": "DuckyBet"
+}
