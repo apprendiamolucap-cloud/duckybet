@@ -1,12 +1,12 @@
 // ===== STORAGE =====
-// Gestisce il salvataggio dei dati nel browser (localStorage)
+// Gestisce il salvataggio in localStorage
 
 window.Storage = {
 
   KEY_STATE: 'duckybet_state',
   KEY_USER: 'duckybet_user',
+  KEY_HALLOWEEN: 'duckybet_halloween_unlocked',
 
-  // Stato di default (prima volta che si gioca)
   defaultState: {
     balance: 100,
     totalWon: 0,
@@ -15,16 +15,15 @@ window.Storage = {
     ducksCaught: 0
   },
 
-  // Salva lo stato corrente
+  // ===== STATO =====
   saveState(state) {
     try {
       localStorage.setItem(this.KEY_STATE, JSON.stringify(state));
     } catch (e) {
-      console.warn('Impossibile salvare lo stato:', e);
+      console.warn('Errore salvataggio stato:', e);
     }
   },
 
-  // Carica lo stato salvato (o default se non esiste)
   loadState() {
     try {
       const saved = localStorage.getItem(this.KEY_STATE);
@@ -32,21 +31,18 @@ window.Storage = {
         return { ...this.defaultState, ...JSON.parse(saved) };
       }
     } catch (e) {
-      console.warn('Impossibile caricare lo stato:', e);
+      console.warn('Errore caricamento stato:', e);
     }
     return { ...this.defaultState };
   },
 
-  // Salva l'utente loggato
+  // ===== UTENTE =====
   saveUser(user) {
     try {
       localStorage.setItem(this.KEY_USER, JSON.stringify(user));
-    } catch (e) {
-      console.warn('Impossibile salvare utente:', e);
-    }
+    } catch (e) {}
   },
 
-  // Carica l'utente loggato (o null)
   loadUser() {
     try {
       const saved = localStorage.getItem(this.KEY_USER);
@@ -56,15 +52,26 @@ window.Storage = {
     }
   },
 
-  // Rimuove l'utente (logout)
   removeUser() {
     localStorage.removeItem(this.KEY_USER);
   },
 
-  // Reset completo (per pulsante reset)
+  // ===== HALLOWEEN =====
+  isHalloweenUnlocked() {
+    return localStorage.getItem(this.KEY_HALLOWEEN) === 'true';
+  },
+
+  unlockHalloween() {
+    localStorage.setItem(this.KEY_HALLOWEEN, 'true');
+  },
+
+  // ===== RESET =====
   resetAll() {
     localStorage.removeItem(this.KEY_STATE);
     localStorage.removeItem(this.KEY_USER);
+    localStorage.removeItem('duckybet_leaderboard');
+    localStorage.removeItem('duckybet_codici_riscattati');
+    localStorage.removeItem(this.KEY_HALLOWEEN);
   }
 
 };
