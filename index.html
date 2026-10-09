@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/login.css">
 <link rel="stylesheet" href="css/game.css">
+<link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
 
@@ -42,7 +43,7 @@
       <p>per continuare su DuckyBet</p>
     </div>
     <input type="email" class="ginput" id="gEmail" placeholder="Email">
-    <input type="text" class="ginput" id="gName" placeholder="Nome (opzionale)">
+    <input type="text" class="ginput" id="gName" placeholder="Nome utente (per la classifica)">
     <div class="gfoot">
       <button class="gcancel" onclick="Auth.closeModal()">Annulla</button>
       <button class="gnext" onclick="Auth.confirm()">Avanti</button>
@@ -53,13 +54,12 @@
 <!-- APP -->
 <div class="container" id="appContainer" style="display:none;">
   <header>
-    <div class="user-info" onclick="Auth.logout()">
+    <div class="user-info" onclick="switchTab('profilo', document.querySelector('[data-tab=profilo]'))">
       <span id="userAvatar">🦆</span>
       <span id="userName">Ospite</span>
-      <span style="opacity:0.6;font-size:10px;">(esci)</span>
     </div>
     <h1>🦆 DuckyBet 🦆</h1>
-    <p class="sub">Scommesse • Cavalli • Papere</p>
+    <p class="sub">Scommesse • Cavalli • Papere • Classifica</p>
   </header>
 
   <div class="balance-bar">
@@ -70,16 +70,25 @@
   </div>
 
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('calcio',this)">⚽ Calcio</button>
-    <button class="tab-btn" onclick="switchTab('cavalli',this)">🐎 Cavalli</button>
-    <button class="tab-btn" onclick="switchTab('papere',this)">🦆 Papere</button>
-    <a href="halloween.html" class="tab-btn hw">🎃 Halloween</a>
+    <button class="tab-btn active" data-tab="calcio" onclick="switchTab('calcio',this)">⚽ Calcio</button>
+    <button class="tab-btn" data-tab="cavalli" onclick="switchTab('cavalli',this)">🐎 Cavalli</button>
+    <button class="tab-btn" data-tab="papere" onclick="switchTab('papere',this)">🦆 Papere</button>
+    <button class="tab-btn" data-tab="leaderboard" onclick="switchTab('leaderboard',this)">🏆 Classifica</button>
+    <button class="tab-btn" data-tab="profilo" onclick="switchTab('profilo',this)">👤 Profilo</button>
+    <button class="tab-btn" data-tab="codici" onclick="switchTab('codici',this)">🔑 Codici</button>
+    <button class="tab-btn hw" data-tab="halloweenSection" id="halloweenTab" style="display:none;" onclick="switchTab('halloweenSection',this)">🎃 Halloween</button>
   </div>
 
+  <!-- ===== CALCIO ===== -->
   <div class="section active" id="calcio-section">
+    <div class="game-header calcio-header">
+      <div class="gh-icon">⚽</div>
+      <div class="gh-text">
+        <h2>Schedine Calcio</h2>
+        <p>Seleziona le partite e crea la tua schedina vincente</p>
+      </div>
+    </div>
     <div class="panel">
-      <h2>⚽ Schedine Calcio</h2>
-      <p class="desc">Seleziona le giocate e crea la schedina!</p>
       <div id="matchList"></div>
       <div style="text-align:center;margin-top:15px;">
         <button class="btn green" onclick="Calcio.play()">💰 GIOCA SCHEDINA</button>
@@ -88,10 +97,16 @@
     </div>
   </div>
 
+  <!-- ===== CAVALLI ===== -->
   <div class="section" id="cavalli-section">
+    <div class="game-header cavalli-header">
+      <div class="gh-icon">🐎</div>
+      <div class="gh-text">
+        <h2>Corse dei Cavalli</h2>
+        <p>Scegli il tuo cavallo e punta sul vincitore</p>
+      </div>
+    </div>
     <div class="panel">
-      <h2>🐎 Corse dei Cavalli</h2>
-      <p class="desc">Scegli il cavallo, punta e guarda la corsa!</p>
       <div class="race-track" id="raceTrack"><div class="finish-line"></div></div>
       <div class="horse-picker" id="horsePicker"></div>
       <div style="text-align:center;">
@@ -105,10 +120,16 @@
     </div>
   </div>
 
+  <!-- ===== PAPERE ===== -->
   <div class="section" id="papere-section">
+    <div class="game-header papere-header">
+      <div class="gh-icon">🦆</div>
+      <div class="gh-text">
+        <h2>Caccia alle Papere</h2>
+        <p>30 secondi per catturare più papere possibili!</p>
+      </div>
+    </div>
     <div class="panel">
-      <h2>🦆 Caccia alle Papere</h2>
-      <p class="desc">Clicca le papere! Costo: €10 a partita.</p>
       <div class="duck-stats">
         <div class="duck-stat"><div class="s-label">Tempo</div><div class="s-value" id="duckTime">30s</div></div>
         <div class="duck-stat"><div class="s-label">Punteggio</div><div class="s-value" id="duckScore">0</div></div>
@@ -124,12 +145,101 @@
       <div class="message" id="duckMessage">Premi INIZIA per giocare!</div>
     </div>
   </div>
+
+  <!-- ===== HALLOWEEN GAME (sbloccabile) ===== -->
+  <div class="section" id="halloweenSection-section">
+    <div class="game-header halloween-header">
+      <div class="gh-icon">🎃</div>
+      <div class="gh-text">
+        <h2>Halloween Special</h2>
+        <p>Modalità segreta sbloccata!</p>
+      </div>
+    </div>
+    <div class="panel halloween-panel">
+      <div style="text-align:center;padding:30px;">
+        <div style="font-size:70px;margin-bottom:15px;animation:pumpkinBounce 2s infinite;">🎃</div>
+        <h3 style="font-family:'Creepster',cursive;color:#FF6B00;font-size:32px;margin-bottom:15px;">MODALITÀ SEGRETA SBLOCCATA</h3>
+        <p style="color:#aaa;margin-bottom:20px;">Visita la pagina speciale dedicata al creatore!</p>
+        <a href="halloween.html" class="btn" style="background:linear-gradient(135deg,#FF6B00,#FF4500);box-shadow:0 5px 0 #8B2500;text-decoration:none;display:inline-block;">🎃 VAI ALLA PAGINA HALLOWEEN</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CLASSIFICA ===== -->
+  <div class="section" id="leaderboard-section">
+    <div class="game-header lb-header">
+      <div class="gh-icon">🏆</div>
+      <div class="gh-text">
+        <h2>Classifica</h2>
+        <p>I migliori giocatori di DuckyBet</p>
+      </div>
+    </div>
+    <div class="panel">
+      <div style="display:flex;justify-content:center;gap:8px;margin-bottom:20px;flex-wrap:wrap;">
+        <button class="filter-btn active" onclick="Leaderboard.filter('all',this)">Tutti</button>
+        <button class="filter-btn" onclick="Leaderboard.filter('calcio',this)">⚽ Calcio</button>
+        <button class="filter-btn" onclick="Leaderboard.filter('cavalli',this)">🐎 Cavalli</button>
+        <button class="filter-btn" onclick="Leaderboard.filter('papere',this)">🦆 Papere</button>
+      </div>
+      <div id="leaderboardContent"></div>
+      <div style="text-align:center;margin-top:20px;">
+        <button class="btn" style="background:#E74C3C;box-shadow:0 5px 0 #A93226;" onclick="Leaderboard.reset()">🗑️ Resetta</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PROFILO ===== -->
+  <div class="section" id="profilo-section">
+    <div class="game-header profilo-header">
+      <div class="gh-icon">👤</div>
+      <div class="gh-text">
+        <h2>Il Tuo Profilo</h2>
+        <p>Personalizza il tuo profilo pubblico</p>
+      </div>
+    </div>
+    <div class="panel">
+      <div id="profiloContent"></div>
+    </div>
+  </div>
+
+  <!-- ===== CODICI ===== -->
+  <div class="section" id="codici-section">
+    <div class="game-header codici-header">
+      <div class="gh-icon">🔑</div>
+      <div class="gh-text">
+        <h2>Codici Segreti</h2>
+        <p>Inserisci codici per sbloccare contenuti speciali</p>
+      </div>
+    </div>
+    <div class="panel">
+      <div style="text-align:center;padding:20px;">
+        <p style="color:#888;margin-bottom:20px;font-size:14px;">Hai trovato un codice segreto? Inseriscilo qui!</p>
+        <input type="text" id="codiceInput" placeholder="Inserisci codice..." 
+               style="background:#fff;border:4px solid #FFD93D;border-radius:15px;padding:14px 18px;font-size:16px;font-weight:700;font-family:'Fredoka';text-align:center;width:280px;color:#333;">
+        <br>
+        <button class="btn green" style="margin-top:15px;" onclick="Codici.riscatta()">🎁 RISCATTA</button>
+        <div class="message" id="codiceMessage">Inserisci un codice e premi RISCATTA</div>
+      </div>
+      <div style="margin-top:20px;">
+        <h3 style="color:#F5A623;font-size:16px;margin-bottom:12px;text-align:center;">📜 Codici Riscattati</h3>
+        <div id="codiciRiscattati"></div>
+      </div>
+      <div style="background:#FFF9E6;border:3px dashed #FFD93D;border-radius:15px;padding:15px;margin-top:20px;">
+        <p style="font-size:12px;color:#888;text-align:center;">
+          💡 <strong>Suggerimento:</strong> Il codice per sbloccare Halloween è nascosto da qualche parte nel sito... 👀
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="js/utils.js" defer></script>
 <script src="js/storage.js" defer></script>
 <script src="js/auth.js" defer></script>
 <script src="js/balance.js" defer></script>
+<script src="js/leaderboard.js" defer></script>
+<script src="js/codici.js" defer></script>
+<script src="js/profilo.js" defer></script>
 <script src="js/calcio.js" defer></script>
 <script src="js/cavalli.js" defer></script>
 <script src="js/papere.js" defer></script>
