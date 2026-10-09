@@ -1,0 +1,24 @@
+body {
+    background: linear-gradient(135deg, #87CEEB, #FFD93D);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px;
+    min-height: 100vh;
+}
+
+h1 {
+    color: #F5A623;
+    font-size: 48px;
+    text-shadow: 3px 3px 0 #fff;
+}
+
+button {
+    background: #F5A623;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 0 #B87A0F;
+}
