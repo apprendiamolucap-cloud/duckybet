@@ -1,1 +1,9 @@
-
+{
+  "horses": [
+    { "id": 1, "name": "Fulmine", "emoji": "🏇", "odds": 2.5 },
+    { "id": 2, "name": "Tuono",   "emoji": "🐎", "odds": 3.0 },
+    { "id": 3, "name": "Lampo",   "emoji": "🏇", "odds": 4.0 },
+    { "id": 4, "name": "Vento",   "emoji": "🐎", "odds": 5.5 },
+    { "id": 5, "name": "Saetta",  "emoji": "🏇", "odds": 8.0 }
+  ]
+}
